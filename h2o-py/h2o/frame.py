@@ -2534,6 +2534,9 @@ class H2OFrame(object):
             else:
                 colIndex = col_names.index(column)
 
+        if not(self[colIndex].isnumeric()):
+            raise H2OValueError("Wrong column type!  Selected column must be numeric.")
+
         return H2OFrame._expr(expr=ExprNode("topn",self,colIndex, nPercent, getBottom))
 
     def topN(self, column=0, nPercent=10):

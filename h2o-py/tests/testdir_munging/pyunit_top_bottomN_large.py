@@ -18,7 +18,7 @@ def h2o_H2OFrame_top_bottomN():
     dataFrame = h2o.import_file(pyunit_utils.locate("bigdata/laptop/jira/TopBottomNRep4.csv.zip"))
     topAnswer = h2o.import_file(pyunit_utils.locate("smalldata/jira/Top20Per.csv.zip"))
     bottomAnswer = h2o.import_file(pyunit_utils.locate("smalldata/jira/Bottom20Per.csv.zip"))
-    nPercentages = [4,8,12,16]  # multiples of 4 since dataset is repeated 4 times.
+    nPercentages = [1,2,3,4]  # multiples of 4 since dataset is repeated 4 times.
     frameNames = dataFrame.names    # get data column names
     tolerance=1e-12
     nsample = 100
