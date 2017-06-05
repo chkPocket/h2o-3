@@ -1150,6 +1150,8 @@ h2o.topBottomN <- function(x, column, nPercent, getBottom){
 
   # verify nPercent
   if ((nPercent <  0) || nPercent > 100) stop("nPercent is between 0 and 100.")
+  if (nPercent*0.01*nrow(x) < 1) stop("Increase nPercent.  Current value will result in top 0 row.")
+  if (!h2o.isnumeric(x[colIndex+1])) stop("Wrong column type!  Selected column must be numeric.")
 
   .newExpr("topn", x, colIndex, nPercent,getBottom)
 }

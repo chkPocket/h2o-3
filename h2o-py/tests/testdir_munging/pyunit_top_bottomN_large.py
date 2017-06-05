@@ -18,13 +18,14 @@ def h2o_H2OFrame_top_bottomN():
     dataFrame = h2o.import_file(pyunit_utils.locate("bigdata/laptop/jira/TopBottomNRep4.csv.zip"))
     topAnswer = h2o.import_file(pyunit_utils.locate("smalldata/jira/Top20Per.csv.zip"))
     bottomAnswer = h2o.import_file(pyunit_utils.locate("smalldata/jira/Bottom20Per.csv.zip"))
-    nPercentages = [4,8,12,16]  # multiples of 4 since dataset is repeated 4 times.
+    nPercentages = [1,2,3,4]  # multiples of 4 since dataset is repeated 4 times.
     frameNames = dataFrame.names    # get data column names
     tolerance=1e-12
     nsample = 100
 
     nP = nPercentages[randint(0, len(nPercentages)-1)]  # pick a random percentage
     colIndex = randint(0, len(frameNames)-1)    # pick a random column
+    print("For topN: Percentage chosen is {0}.  Column index chosen is {1}".format(nP, colIndex))
     newTopFrame = dataFrame.topN(frameNames[colIndex], nP)  # call topN with column names
     newTopFrameC = dataFrame.topN(colIndex, nP)             # call topN with same column index
 
@@ -37,6 +38,7 @@ def h2o_H2OFrame_top_bottomN():
     # test bottomN here
     nP = nPercentages[randint(0, len(nPercentages)-1)]  # pick a random percentage
     colIndex = randint(0, len(frameNames)-1)    # pick a random column
+    print("For bottomN: Percentage chosen is {0}.  Column index chosen is {1}".format(nP, colIndex))
     newBottomFrame = dataFrame.bottomN(frameNames[colIndex], nP)  # call topN with column names
     newBottomFrameC = dataFrame.bottomN(colIndex, nP)             # call topN with same column index
 
