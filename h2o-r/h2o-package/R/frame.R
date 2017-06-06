@@ -1141,11 +1141,11 @@ h2o.topBottomN <- function(x, column, nPercent, getBottom){
   cnames = names(x)
   if (typeof(column)=="character") {  # verify column
     if (!column %in% cnames) stop("column name not found in dataframe")
-    colIndex = (which (column %in% cnames))-1
+    colIndex <<- (which(column==cnames ))-1
 
   } else {  # column is number
     if ((column <= 0) || (column > ncol(x))) stop("Illegal column index")
-    colIndex = column-1
+    colIndex <<- column-1
   }
 
   # verify nPercent

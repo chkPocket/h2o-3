@@ -9,7 +9,7 @@ test.topNbottomN = function() {
     dataset <- h2o.uploadFile(locate("bigdata/laptop/jira/TopBottomNRep4.csv.zip"))
     topAnswer = h2o.uploadFile(locate("smalldata/jira/Top20Per.csv.zip"))
     bottomAnswer = h2o.uploadFile(locate("smalldata/jira/Bottom20Per.csv.zip"))
-    nPercent = c(1,2,3)
+    nPercent = c(1,2,3,4)
 
     # test topN with randomly chosen N percent, and with column names and column index
     frameNames = names(dataset)
@@ -18,11 +18,11 @@ test.topNbottomN = function() {
     print(paste("test topN: nPercent is", nP, " Column index is ", colIndex))
     topNf = h2o.topN(dataset,frameNames[colIndex],nP)   # call with column name
     topNfI = h2o.topN(dataset,colIndex,nP)              # call with column index
+
     # result from column name and column index should be the same
     h2o_and_R_equal(topNf, topNfI)
     compare_rep_frames(topAnswer, topNf, tolerance, colIndex,0)
 
-    browser()
     # test bottomN with randomly chosen N percent, and with column names and column index
     frameNames = names(dataset)
     nP = nPercent[sample(1:length(nPercent),1,replace=F)]
@@ -46,11 +46,7 @@ compare_rep_frames = function(answerFrame, actualFrame, tolerance, colIndex, get
       allIndex = c(1:distinctValNum)
     }
      for (index in allIndex) {
-       if (abs(answerA[index]-actualA[repIndex*4])>=tolerance) {
-         browser()
-         print(paste("first value", answerA[index], "second value ", actualA[repIndex*4]))
-       }
-         expect_true(abs(answerA[index]-actualA[repIndex*4])<tolerance)
+       expect_true(abs(answerA[index]-actualA[repIndex*4])<tolerance)
        repIndex = repIndex+1
      }
 }
